@@ -273,8 +273,46 @@ int deleteFirst(headNode* h)
  */
 int deleteNode(headNode* h, int key)
 {
+	    listNode* n1 = (listNode*)malloc(sizeof(listNode)); // 동적할당을 이용하여 노드를 가리키는 포인터 n1을 생성
+		listNode* cur = h->first; // 탐색에 필요한 노드를 가리키는 포인터 cur을 생성하고 헤더노드가 가리키는 노드를 저장
+		listNode* prevcur = NULL; // 이전노드를 저장하는 노드를 가리키는 포인터 prevcur을 생성하고 초기화
+		listNode* storage; // 삭제할 노드를 저장하는 노드를 가리키는 포인터 storage를 생성함
 
-	return 0;
+		if (h->first == NULL) // 첫번째 노드가 NULL 이면
+		{
+			printf("삭제할 노드가 없습니다.\n");
+			return 0;
+		}
+		while (cur != NULL) //cur==NULL일때까지 반복
+		{
+			if (h->first->key == key) //헤더노드가 가리키는 노드의 key값이 key값일 경우
+			{
+				storage = h->first; // 헤더노드가 가리키는 노드를 storage에 저장
+				h->first = h->first->link; //헤더노드가 가리키는 노드가 헤더노드가 가리키는 다음노드가 가리키는 노드로 변경({헤더노드, 첫번째 노드, 두번째 노드...}에서 첫번째 노드를 지워야 하므로 두번째 노드를 첫번째 노드의 역할을 하게 만드는 작업)
+				storage->link = NULL; // 삭제할 노드가 가리키는 값을 NULL로 설정
+				free(storage); // storage에 저장된 노드를 해제(삭제)
+
+				return 0;
+			}
+			if (cur->key == key) // cur의 key값이 key와 같으면
+			{
+				storage = cur; // storage에 cur노드를 저장
+				prevcur->link = cur->link; // 이전cur노드가 가리키는 값을 cur노드가 가리키는 값으로 변경
+				storage->link = NULL; // 삭제할 노드가 가리키는 값을 NULL로 설정
+				free(storage); // storage에 저장된 노드를 해제(삭제)
+
+				return 0;
+			}
+
+
+			prevcur = cur; //이전 cur 노드를 저장하는 포인터에 현재 cur노드를 저장
+			cur = cur->link; //cur노드를 cur노드가 가리키는 노드로 변경
+
+
+
+		}
+
+	    return 0;
 
 }
 
