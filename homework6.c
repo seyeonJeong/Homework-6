@@ -321,10 +321,36 @@ int deleteNode(headNode* h, int key)
  */
 int deleteLast(headNode* h)
 {
+	    listNode* storage; // 삭제할 노드를 저장하는 노드를 가리키는 포인터 storage를 생성함
+		listNode* cur = h->first; // 탐색에 필요한 노드를 가리키는 포인터 cur을 생성하고 헤더노드가 가리키는 노드를 저장
+		listNode* prevcur = NULL; // 이전노드를 저장하는 노드를 가리키는 포인터 prevcur을 생성하고 초기화
+		while (cur != NULL) // cur == NULL일 때까지
+		{
+			if (h->first == NULL) // 만약 헤더노드가 가리키는 값이 NULL이라면
+			{
+				printf("삭제할 노드가 없습니다.\n");
+
+				return 0;
+			}
+			if (cur->link == NULL) // cur이 가리키는 값이 NULL이라면
+			{
+				storage = cur; // cur을 storage에 저장한다.
+				prevcur->link = cur->link; // 이전 cur이 가리키는 노드를 cur이 가리키는 노드로 바꾼다.
+				storage->link = NULL; // 삭제할 노드가 가리키는 값을 NULL로 설정
+				free(storage); // storage에 저장된 노드를 해제(삭제)
+
+				return 0;
+			}
+
+
+			prevcur = cur; //이전 cur 노드를 저장하는 포인터에 현재 cur노드를 저장
+			cur = cur->link; //cur노드를 cur노드가 가리키는 노드로 변경
+
+		}
 
 
 
-	return 0;
+	    return 0;
 }
 
 
