@@ -214,6 +214,26 @@ int insertNode(headNode* h, int key)
  * list에 key에 대한 노드하나를 추가
  */
 int insertLast(headNode* h, int key) {
+	listNode* n1 = (listNode*)malloc(sizeof(listNode)); // 동적할당을 이용하여 n1노드를 생성
+	listNode* cur = h->first; // 탐색할 때 사용하는 노드를 가리키는 포인터 cur를 헤더노드가 가리키는 값으로 설정
+	listNode* stocur = NULL; // cur 이전 노드를 저장하는 노드를 가리키는 포인터 stocur을 생성 후 초기화
+	n1->key = key; //n1의 key값에 매개변수로 가져온 key값을 저장
+
+	if (h->first == NULL) // 첫번째 헤더노드가 가리키는 값이 NULL 이라면 즉, 노드가 없는 상태라면
+	{
+		h->first = n1; // 헤더노드가 n1노드를 가리키게하고
+		n1->link = NULL; // n1이 NULL 값을 가리키게함
+		return 0;
+	}
+	while (cur != NULL) // cur의 값이 NULL일 때까지 반복
+	{
+		stocur = cur; // 이전값을 저장하는 포인터에 현재 cur을 저장
+		cur = cur->link; // cur을 cur이 가리키는 노드로 변경
+	}
+
+	n1->link = cur; // n1이 cur을 가리키게 함. 여기서 cur은 while문을 거치며 NULL값이 됨 즉, n1노드를 마지막 노드로 설정
+	stocur->link = n1; // 이전 cur의 노드가 n1노드를 가리키게함
+
 
 
 
