@@ -247,10 +247,24 @@ int insertLast(headNode* h, int key) {
  */
 int deleteFirst(headNode* h)
 {
+	    listNode* storage; // 노드를 가리키는 포인터를 정의, 삭제할 노드를 저장하는 용도
+
+		if (h->first == NULL) //만약 헤더노드가 가리키는 노드가 NULL일 경우(노드가 없음)
+		{
+			printf("삭제할 노드가 없습니다.\n");
+			return 0;
+		}
+		else
+		{
+			storage = h->first; //삭제할 노드를 저장 첫번째 노드를 삭제해야하므로 헤더노드가 가리키는 노드를 저장
+			h->first = h->first->link; //헤더노드가 가리키는 노드가 헤더노드가 가리키는 다음노드가 가리키는 노드로 변경({헤더노드, 첫번째 노드, 두번째 노드...}에서 첫번째 노드를 지워야 하므로 두번째 노드를 첫번째 노드의 역할을 하게 만드는 작업)
+			return 0;
+		}
+		storage->link = NULL; // 삭제할 노드가 가리키는 값을 NULL로 변경
+		free(storage); // 노드를 해제 (삭제)
 
 
-
-	return 0;
+	    return 0;
 }
 
 
