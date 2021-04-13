@@ -358,6 +358,24 @@ int deleteLast(headNode* h)
  * 리스트의 링크를 역순으로 재 배치
  */
 int invertList(headNode* h) {
+	listNode* cur = h->first; //헤더노드가 가리키는 노드를 가리키는 포인터를 선언함
+	listNode* previous = NULL; // 이전 노드를 가리키는 포인터를 선언하고 초기화
+	listNode* trail = NULL; // 이전노드의 이전노드를 가리키는 포인터를 선언하고 초기화
+
+	if (h->first == NULL)
+	{
+		printf("노드가 없습니다.");
+		return 0;
+	}
+	while (cur != NULL) // cur == NULL 일때까지
+	{
+		trail = previous; //trail의 값은 previous 즉 이전 노드가 됨
+		previous = cur; // 이전 노드의 값은 현재 노드가됨
+		cur = cur->link; // 현재 노드의 값은 현재 노드가 가리키는 노드가됨
+		previous->link = trail; // 이전노드가 가리키는 값을 이전노드의 이전노드가 됨
+
+	}
+	h->first = previous; // cur값이 NULL 일경우 cur의 이전노드가 첫번째 노드가 됨
 
 
 
